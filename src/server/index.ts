@@ -1,8 +1,11 @@
 import fastify from "fastify";
 import fastifyCors from "@fastify/cors";
 import routes from "./routes";
+import * as dotenv from "dotenv";
 
 const app = async () => {
+  dotenv.config();
+
   const server = await fastify({
     logger: process.env.NODE_ENV === "development",
     connectionTimeout: 20,
