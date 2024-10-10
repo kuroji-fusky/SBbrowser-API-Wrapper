@@ -19,6 +19,5 @@ export async function vipUsersRoute(_: any, reply: FastifyReply) {
     url: `${SB_BASE_URL}/userid/${i}`
   }))
 
-
   return reply.code(200).send({ userID: vipUserIDs })
 }

@@ -10,8 +10,6 @@ type Category =
   | "exclusive_access"
 type ActionType = "skip" | "mute" | "full" | "chapter"
 
-
-
 interface SegmentData {
   dateSubmitted: string | Date
   /** A YouTube video ID */
@@ -54,7 +52,7 @@ export type QueryParams = Partial<{
   userid: string
 }>
 
-export namespace Submissions {
+export namespace sbbrowser.Submissions {
   export type Username = Omit<SegmentData, "username" | "isVIP">
   export type UserID = Omit<SegmentData, "username" | "userid" | "isVIP">
   export type Video = Omit<SegmentData, "id">

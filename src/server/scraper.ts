@@ -11,8 +11,6 @@ export const loadUrl = async (url: string | URL) => {
   })
 }
 
-
-
 export const parseTableData = async (cheerioDoc: cheerio.CheerioAPI) => {
   const $ = cheerioDoc
 

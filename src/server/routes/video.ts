@@ -13,7 +13,6 @@ interface VideoRequestRoute {
 export async function videoRoute(request: FastifyRequest<VideoRequestRoute>, reply: FastifyReply) {
   const { id } = request.params
 
-
   if (id === "") {
     return reply.code(400).send({
       message: "No video param input"

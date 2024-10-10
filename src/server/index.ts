@@ -3,7 +3,6 @@ import fastifyCors from "@fastify/cors"
 import * as dotenv from "dotenv"
 import definedRoutes from "./routes"
 
-
 const app = async () => {
   dotenv.config()
 

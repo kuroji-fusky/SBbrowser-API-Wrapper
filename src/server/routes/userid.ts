@@ -8,6 +8,4 @@ interface UserIDRequestRoute {
   Querystring: Omit<QueryParams, "userid">
 }
 
-export async function useridRoute(request: FastifyRequest<UserIDRequestRoute>, reply: FastifyReply) {
-
-}
+export async function useridRoute(request: FastifyRequest<UserIDRequestRoute>, reply: FastifyReply) { }
