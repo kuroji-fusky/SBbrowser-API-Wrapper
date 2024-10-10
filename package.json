@@ -4,7 +4,7 @@
   "author": "Kerby Keith Aquino <hello@kurojifusky.com>",
   "license": "Apache-2.0",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/server/index.ts"
+    "dev": "ts-node-dev --respawn --transpile-only src/server/index.ts | pino-pretty && exit 0"
   },
   "dependencies": {
     "@fastify/cors": "^10.0.1",
@@ -15,6 +15,7 @@
     "@types/node": "^22.7.5",
     "dotenv": "^16.4.5",
     "eslint": "8.57.0",
+    "pino-pretty": "^11.2.2",
     "prettier": "^3.3.3",
     "rimraf": "^6.0.1",
     "ts-node-dev": "^2.0.0",

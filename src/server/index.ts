@@ -1,15 +1,14 @@
 import fastify from "fastify"
 import fastifyCors from "@fastify/cors"
-import routes from "./routes"
 import * as dotenv from "dotenv"
 import definedRoutes from "./routes"
+
 
 const app = async () => {
   dotenv.config()
 
   const server = await fastify({
-    logger: process.env.NODE_ENV === "development",
-    connectionTimeout: 20,
+    logger: true,
   })
 
   // CORS stuff
@@ -26,13 +25,11 @@ const app = async () => {
       port: Number(process.env.SERVER_PORT) || 4000,
       host: process.env.SERVER_HOST || "localhost"
     },
-    (err, addr) => {
+    (err) => {
       if (err) {
-        console.error(`There's an oopsie:`, err)
+        server.log.error(`There's an oopsie:`, err)
         process.exit(1)
       }
-
-      console.log(`Server now listening on ${addr}!`)
     })
 }
 
