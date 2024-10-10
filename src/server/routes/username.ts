@@ -1,6 +1,11 @@
-import { FastifyReply, FastifyRequest } from "fastify"
+import type { FastifyReply, FastifyRequest } from "fastify"
+import type { QueryParams } from "../../types"
 
-export async function usernameRoute(
-  request: FastifyRequest,
-  reply: FastifyReply
-) { }
+interface UsernameRequestRoute {
+  Params: {
+    username: string
+  },
+  Querystring: Omit<QueryParams, "userid">
+}
+
+export async function usernameRoute(request: FastifyRequest<UsernameRequestRoute>, reply: FastifyReply) { }

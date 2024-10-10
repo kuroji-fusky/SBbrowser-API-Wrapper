@@ -2,6 +2,7 @@ import fastify from "fastify"
 import fastifyCors from "@fastify/cors"
 import routes from "./routes"
 import * as dotenv from "dotenv"
+import definedRoutes from "./routes"
 
 const app = async () => {
   dotenv.config()
@@ -11,26 +12,15 @@ const app = async () => {
     connectionTimeout: 20,
   })
 
+  // CORS stuff
   server.register(fastifyCors, {
     origin: process.env.ORIGIN_PRODUCTION_URL || "http://localhost:3000",
+    methods: "GET"
   })
-
-  server.addHook("onSend", (req, reply, payload, done) => {
-    reply.header("Access-Control-Allow-Headers", "Accept,Origin,Content-Type")
-    reply.header("Access-Control-Allow-Methods", "GET")
-    done()
-  })
-
-  server.get("/", routes.root)
-  server.get("/video/:id", routes.video)
-
-  server.get("/uuid/:uuid", routes.uuid)
-
-  server.get("/userid/:userid", routes.uuid)
-  server.get("/username/:username", routes.uuid)
-  server.get("/vip-users", routes.vipUsers)
 
   // Entry point
+  server.register(definedRoutes, { prefix: "/api" })
+
   server.listen(
     {
       port: Number(process.env.SERVER_PORT) || 4000,
@@ -38,11 +28,11 @@ const app = async () => {
     },
     (err, addr) => {
       if (err) {
-        server.log.error(`There's an oopsie:`, err)
+        console.error(`There's an oopsie:`, err)
         process.exit(1)
       }
 
-      server.log.info(`Server now listening on ${addr}!`)
+      console.log(`Server now listening on ${addr}!`)
     })
 }
 

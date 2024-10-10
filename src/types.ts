@@ -10,6 +10,8 @@ type Category =
   | "exclusive_access"
 type ActionType = "skip" | "mute" | "full" | "chapter"
 
+
+
 interface SegmentData {
   dateSubmitted: string | Date
   /** A YouTube video ID */
@@ -35,6 +37,22 @@ interface SegmentData {
   /** UUID of the segment */
   uuid: string
 }
+
+export type QueryParams = Partial<{
+  videoid: string
+
+  votes_min: number
+  votes_max: number
+
+  views_min: number
+  views_max: number
+
+  category: Category
+  shadowhidden: 0 | 1
+  uuid: string
+  actiontype: ActionType
+  userid: string
+}>
 
 export namespace Submissions {
   export type Username = Omit<SegmentData, "username" | "isVIP">

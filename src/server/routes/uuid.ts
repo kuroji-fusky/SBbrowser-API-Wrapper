@@ -1,3 +1,9 @@
-import { FastifyReply, FastifyRequest } from "fastify"
+import type { FastifyReply, FastifyRequest } from "fastify"
 
-export async function uuidRoute(request: FastifyRequest, reply: FastifyReply) { }
+interface UUIDRequestRoute {
+  Params: {
+    username: string
+  },
+}
+
+export async function uuidRoute(request: FastifyRequest<UUIDRequestRoute>, reply: FastifyReply) { }
