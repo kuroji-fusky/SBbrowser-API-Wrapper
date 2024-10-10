@@ -15,6 +15,12 @@ const app = async () => {
     origin: process.env.ORIGIN_PRODUCTION_URL || "http://localhost:3000",
   })
 
+  server.addHook("onSend", (req, reply, payload, done) => {
+    reply.header("Access-Control-Allow-Headers", "Accept,Origin,Content-Type")
+    reply.header("Access-Control-Allow-Methods", "GET")
+    done()
+  })
+
   server.get("/", routes.root)
   server.get("/video/:id", routes.video)
 
