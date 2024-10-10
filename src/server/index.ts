@@ -1,6 +1,5 @@
 import fastify from "fastify"
 import fastifyCors from "@fastify/cors"
-import routes from "./routes"
 import * as dotenv from "dotenv"
 import definedRoutes from "./routes"
 
