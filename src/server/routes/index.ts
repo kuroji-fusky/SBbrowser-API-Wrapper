@@ -1,9 +1,9 @@
-import { rootRoute } from "./root";
-import { useridRoute } from "./userid";
-import { usernameRoute } from "./username";
-import { uuidRoute } from "./uuid";
-import { videoRoute } from "./video";
-import { vipUsersRoute } from "./vipUsers";
+import { rootRoute } from "./root"
+import { useridRoute } from "./userid"
+import { usernameRoute } from "./username"
+import { uuidRoute } from "./uuid"
+import { videoRoute } from "./video"
+import { vipUsersRoute } from "./vipUsers"
 
 const routes = {
   root: rootRoute,
@@ -12,6 +12,6 @@ const routes = {
   username: usernameRoute,
   video: videoRoute,
   vipUsers: vipUsersRoute,
-};
+}
 
-export default routes;
+export default routes
