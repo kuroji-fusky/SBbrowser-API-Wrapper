@@ -3,7 +3,7 @@
 A wrapper for Lanrza's [SBbrowser][sbb] frontend as a digestable API built on Fastify and [Cheerio][cheerio].
 
 This is built in conjunction with [SponsorExplorer][se] for ease of access through a REST API without
-the concerns of rewriting it in a form of a web scraper.
+the concerns of rewriting it from scratch.
 
 ## Setup and Installation
 
