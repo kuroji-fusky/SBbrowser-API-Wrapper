@@ -26,6 +26,16 @@ yarn dev
 - `SERVER_HOST` (default: `localhost`)
 - `SERVER_PORT` (default: `4000`)
 
+## Endpoints
+
+All endpoints are prefixed with `/api/*` and they only accept `GET` requests only.
+
+- `/video/:id`: A valid YouTube video ID, will return an empty array otherwise
+- `/uuid/:uuid`: A segment UUID
+- `/username/:username`: A given username
+- `/userid/:userid`: A userID, suitable alternative if no username is given
+- `/vip-users`: Returns a list of VIP users in UserID
+
 ## License
 
 Apache-2.0
