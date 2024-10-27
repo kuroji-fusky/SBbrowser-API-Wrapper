@@ -11,6 +11,7 @@ type Category =
 type ActionType = "skip" | "mute" | "full" | "chapter";
 
 interface SegmentData {
+  /* Segment's date submission */
   dateSubmitted: string | Date;
   /** A YouTube video ID */
   id: string;
