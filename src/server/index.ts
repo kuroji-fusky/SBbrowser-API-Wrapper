@@ -23,7 +23,7 @@ const app = async () => {
   }
 
   // Entry point
-  server.register(definedRoutes, { prefix: basePrefix || "/" })
+  server.register(definedRoutes, { prefix: basePrefix ?? "/" })
 
   server.listen(
     {
@@ -32,7 +32,7 @@ const app = async () => {
     },
     (err) => {
       if (err) {
-        server.log.error("There's an oopsie:", err)
+        server.log.error(`There's an oopsie: ${err}`)
         process.exit(1)
       }
     }
