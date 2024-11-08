@@ -18,7 +18,7 @@ const app = async () => {
 
   const basePrefix = process.env.BASE_PREFIX
 
-  if (!(basePrefix?.startsWith("/"))) {
+  if (basePrefix && !(basePrefix?.startsWith("/"))) {
     throw new Error(`BASE_PREFIX should start with "/"`)
   }
 
