@@ -23,14 +23,12 @@ export async function videoRoute(
   }
 
   const reqUrl = `${SB_BASE_URL}/video/${id}`;
-
   const { submissionTable } = await parseTableData(await loadUrl(reqUrl));
 
   const submissions = submissionTable.map((col) => ({
     date: col[0],
-    start: col[1],
-    end: col[2],
-    length: col[3],
+    length: [col[1], col[2]],
+    length_total: col[3],
     votes: parseInt(col[4]),
     views: parseInt(col[5]),
     category: col[6],
