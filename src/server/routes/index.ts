@@ -19,29 +19,29 @@ export default async function definedRoutes(fastify: FastifyInstance) {
   const handleRoute = (url: string, handler: Function) => {
     fastify.get(url, handler as RouteHandlerMethod)
 
-    if (url.includes(":")) {
-      const [baseUrl, dynamicUrlParam] = url.split(":")
+    if (!url.includes(":")) return
 
-      const baseUrlStripped = baseUrl.slice(0, baseUrl.length - 1)
+    const [baseUrl, dynamicUrlParam] = url.split(":")
+    const baseUrlStripped = baseUrl.slice(0, baseUrl.length - 1)
 
-      fastify.get(baseUrl, async (_, reply: FastifyReply) => {
-        return reply.code(400).send({
-          message: `"${dynamicUrlParam}" is required`
-        })
+    fastify.get(baseUrl, async (_, reply: FastifyReply) => {
+      return reply.code(400).send({
+        message: `"${dynamicUrlParam}" is required`
       })
+    })
 
-      fastify.get(baseUrlStripped, async (_, reply: FastifyReply) => {
-        return reply.code(400).send({
-          message: `"${baseUrlStripped}" is a dynamic route and its route parameter of "${dynamicUrlParam}" is required.`
-        })
+    fastify.get(baseUrlStripped, async (_, reply: FastifyReply) => {
+      return reply.code(400).send({
+        message: `"${baseUrlStripped}" is a dynamic route and its route parameter of "${dynamicUrlParam}" is required.`
       })
+    })
 
-      fastify.route({
-        url: baseUrlStripped,
-        method: supportedMethods,
-        handler: methodNotAllowed
-      })
-    }
+    fastify.route({
+      url: baseUrlStripped,
+      method: supportedMethods,
+      handler: methodNotAllowed
+    })
+
 
     // Attach to all supported methods and send HTTP 405
     fastify.route({
