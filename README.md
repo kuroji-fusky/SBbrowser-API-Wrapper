@@ -7,16 +7,16 @@ the concerns of rewriting it from scratch.
 
 ## Setup and Installation
 
-Requires Node and Yarn package manager, install it with Yarn with
+Requires Node and PNPM package manager, install the dependencies with
 
 ```console
-yarn
+pnpm install
 ```
 
 Then run the server locally
 
 ```console
-yarn dev
+pnpm run dev
 ```
 
 ### Environment variables

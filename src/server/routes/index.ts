@@ -42,7 +42,6 @@ export default async function definedRoutes(fastify: FastifyInstance) {
       handler: methodNotAllowed
     })
 
-
     // Attach to all supported methods and send HTTP 405
     fastify.route({
       url,
