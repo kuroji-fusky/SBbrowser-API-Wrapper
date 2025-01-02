@@ -19,23 +19,31 @@ export async function useridRoute(
   const reqUrl = `${SB_BASE_URL}/userid/${userid}`;
   const { submissionTable } = await parseTableData(await loadUrl(reqUrl));
 
-  const submissions = submissionTable.map((col) => ({
-    date: col[0],
-    video: {
-      id: col[1],
-      yt_link: `https://youtu.be/${col[1]}`,
-      sb_link: `${SB_BASE_URL}/video/${col[1]}`
-    },
-    length: [col[2], col[3]],
-    length_total: col[4],
-    votes: parseInt(col[5]),
-    views: parseInt(col[6]),
-    category: col[7],
-    shadowhidden: col[8],
-    uuid: col[9],
-    action: col[10],
-    hidden: col[11],
-  }));
+  const submissions = submissionTable.map((col) => {
+    const [date, id, lengthStart, lengthEnd, lengthTotal, votes, views, category, shadowhidden, uuid, action, hidden] = col;
+
+    return {
+      date: date.text,
+      video: {
+        id: id.text,
+        yt_link: `https://youtu.be/${id.text}`,
+        sb_link: `${SB_BASE_URL}/video/${id.text}`
+      },
+      length: [lengthStart.text, lengthEnd.text],
+      length_total: lengthTotal.text,
+      votes: parseInt(votes.text),
+      isLocked: votes?.title?.some((x) => x.includes("This segment is locked by a VIP")),
+      views: parseInt(views.text),
+      category: {
+        title: category.text,
+        ext: category.title[0]
+      },
+      action: action.title[0],
+      isUserVIP: votes?.title?.some((x) => x === "This user is a VIP"),
+      isShadowHidden: !(shadowhidden.text === "—"),
+      hidden: !(hidden.text === "—"),
+    }
+  })
 
   return reply.code(200).send({
     reqUrl,

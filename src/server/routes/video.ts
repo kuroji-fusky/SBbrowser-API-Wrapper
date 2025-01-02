@@ -27,8 +27,8 @@ export async function videoRoute(
   const { submissionTable } = await parseTableData(await loadUrl(reqUrl));
 
 
-  const submissions = submissionTable.map((x) => {
-    const [date, lengthStart, lengthEnd, lengthTotal, votes, views, category, shadowhidden, uuid, username, action, hidden] = x;
+  const submissions = submissionTable.map((col) => {
+    const [date, lengthStart, lengthEnd, lengthTotal, votes, views, category, shadowhidden, uuid, username, action, hidden] = col;
 
     return {
       date: date.text,
