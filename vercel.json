@@ -1,8 +1,15 @@
 {
+  "version": 2,
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/sbbrowser"
+      "destination": "./dist/server/index.js"
+    }
+  ],
+  "builds": [
+    {
+      "src": "./dist/server/index.js",
+      "use": "@vercel/node"
     }
   ]
 }
