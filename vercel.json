@@ -3,12 +3,12 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "./dist/server/index.js"
+      "destination": "/dist/server/index.js"
     }
   ],
   "builds": [
     {
-      "src": "./dist/server/index.js",
+      "src": "/dist/server/index.js",
       "use": "@vercel/node"
     }
   ]

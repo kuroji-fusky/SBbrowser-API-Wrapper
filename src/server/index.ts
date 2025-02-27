@@ -1,49 +1,55 @@
-import fastify from "fastify"
+import fastify, { type FastifyReply, type FastifyRequest } from "fastify"
 import fastifyCache, { fastifyCaching } from '@fastify/caching'
 import * as dotenv from "dotenv"
 import definedRoutes from "./routes"
 
-const app = async () => {
-  dotenv.config()
+dotenv.config()
 
-  const server = await fastify({
-    logger: true,
-  })
+const sbbApp = fastify({
+  logger: true,
+})
 
-  const basePrefix = process.env.BASE_PREFIX
+const basePrefix = process.env.BASE_PREFIX
 
-  if (basePrefix && !(basePrefix?.startsWith("/"))) {
-    throw new Error(`BASE_PREFIX should start with "/"`)
-  }
+if (basePrefix && !(basePrefix?.startsWith("/"))) {
+  throw new Error(`BASE_PREFIX should start with "/"`)
+}
 
-  // Entry point
-  server.addHook("onSend", (request, reply, payload, done) => {
+const env_originURL = process.env.ORIGIN_PRODUCTION_URL
+
+// Entry point
+sbbApp.addHook("onSend", (request, reply, payload, done) => {
+  if (env_originURL) {
     reply
-      .header("Access-Control-Allow-Origin", process.env.ORIGIN_PRODUCTION_URL || "http://localhost:3000")
+      .header("Access-Control-Allow-Origin", env_originURL || "http://localhost:3000")
       .header("Access-Control-Allow-Methods", "GET")
 
     done()
-  })
+    return
+  }
 
-  server.register(fastifyCache, {
-    privacy: fastifyCaching.privacy.PUBLIC,
-    expiresIn: 48 * 60
-  })
+  reply
+    .header("Access-Control-Allow-Methods", "GET")
 
-  server.register(definedRoutes, { prefix: basePrefix ?? "/" })
+  done()
+  return
+})
 
-  server.listen(
-    {
-      port: Number(process.env.SERVER_PORT) || 4000,
-      host: process.env.SERVER_HOST || "localhost",
-    },
-    (err) => {
-      if (err) {
-        server.log.error(`There's an oopsie: ${err}`)
-        process.exit(1)
-      }
-    }
-  )
+sbbApp.register(fastifyCache, {
+  privacy: fastifyCaching.privacy.PUBLIC,
+  expiresIn: 48 * 60
+})
+
+sbbApp.register(definedRoutes, { prefix: basePrefix ?? "/" })
+
+sbbApp.listen((err) => {
+  if (err) {
+    sbbApp.log.error(`There's an oopsie: ${err}`)
+    process.exit(1)
+  }
+})
+
+export default async (req: FastifyRequest, res: FastifyReply) => {
+  await sbbApp.ready()
+  sbbApp.server.emit("request", req, res)
 }
-
-app()
