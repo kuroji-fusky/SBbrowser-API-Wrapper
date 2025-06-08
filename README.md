@@ -1,3 +1,7 @@
+Archived; [see here](https://github.com/kuroji-fusky/SBbrowser-API-Wrapper/issues/1#issuecomment-2953994226)
+
+---
+
 # SBbrowser API Wrapper
 
 A wrapper for Lanrza's [SBbrowser][sbb] frontend as a digestable API built on Fastify and [Cheerio][cheerio].
